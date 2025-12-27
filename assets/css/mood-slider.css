@@ -1,0 +1,187 @@
+:root {
+    --ms-primary-color: #0f766e;
+    --ms-bg-color: #f9fafb;
+    --ms-text-color: #111827;
+    --ms-subtitle-color: #6b7280;
+    --ms-description-color: #4b5563;
+    --ms-border-radius: 16px;
+    --ms-slider-height: 8px;
+    /* Slightly thicker */
+    --ms-thumb-size: 24px;
+    --ms-font-family: 'Inter', system-ui, -apple-system, sans-serif;
+
+    /* Defaults if not set inline */
+    --ms-title-size: 24px;
+    --ms-subtitle-size: 14px;
+    --ms-mood-text-size: 20px;
+    --ms-desc-size: 14px;
+    --ms-cta-size: 14px;
+    --ms-emoji-size: 32px;
+}
+
+.mood-container {
+    max-width: 520px;
+    margin: 40px auto;
+    padding: 40px 32px;
+    text-align: center;
+    background: var(--ms-bg-color);
+    border-radius: var(--ms-border-radius);
+    font-family: var(--ms-font-family);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.mood-container h2 {
+    font-size: var(--ms-title-size);
+    margin-bottom: 8px;
+    color: var(--ms-text-color);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.subtitle {
+    font-size: var(--ms-subtitle-size);
+    color: var(--ms-subtitle-color);
+    margin-bottom: 40px;
+    font-weight: 400;
+}
+
+/* Wrapper to hold relative emoji bubble */
+.mood-slider-wrapper {
+    position: relative;
+    margin: 40px 0;
+    height: 40px;
+    /* Space for bubble */
+}
+
+/* The floating bubble - Range Circle Look */
+.mood-emoji-bubble {
+    position: absolute;
+    top: -45px;
+    /* Adjust based on size */
+    width: auto;
+    min-width: 40px;
+    height: auto;
+    padding: 5px;
+    /* background: #fff; */
+    /* Removed white bg for cleaner look, or keep transparent */
+    /* border-radius: 50%; */
+    /* box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); */
+    font-size: var(--ms-emoji-size);
+    text-align: center;
+    pointer-events: none;
+    /* Let clicks pass through to slider */
+    transform: translateX(50%);
+    /* Start centered relative to left position */
+    transition: left 0.1s ease-out;
+    /* Smoothish follow, but quick enough to feel responsive */
+    z-index: 10;
+    /* border: 2px solid var(--ms-primary-color); */
+    /* range circle look can be achieved with a border if desired, but large emoji usually stands alone well */
+    /* text-shadow: 0 2px 4px rgba(0,0,0,0.1); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mood-slider {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    height: var(--ms-slider-height);
+    border-radius: 99px;
+    background: #e2e8f0;
+    outline: none;
+    position: relative;
+    z-index: 5;
+    cursor: pointer;
+}
+
+/* Custom Track Fill dynamic logic would require JS updating a gradient, 
+   but for now we use a solid background */
+
+.mood-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: var(--ms-thumb-size);
+    height: var(--ms-thumb-size);
+    background: var(--ms-primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 1);
+    /* White ring */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 2px solid var(--ms-primary-color);
+}
+
+.mood-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.8);
+}
+
+.mood-slider::-moz-range-thumb {
+    width: var(--ms-thumb-size);
+    height: var(--ms-thumb-size);
+    background: var(--ms-primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--ms-primary-color);
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 1);
+}
+
+.mood-output {
+    margin: 32px 0 24px;
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mood-output h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: var(--ms-text-color);
+    font-weight: 700;
+}
+
+.mood-output p {
+    font-size: 15px;
+    color: var(--ms-description-color);
+    line-height: 1.6;
+}
+
+.cta-btn {
+    display: inline-block;
+    padding: 14px 32px;
+    background: var(--ms-primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    /* Slightly modernized pill */
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    border: none;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.cta-btn:hover {
+    opacity: 0.95;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    color: white;
+}
